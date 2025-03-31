@@ -1,0 +1,28 @@
+{% extends 'finance/base.html' %}
+
+{% block content %}
+    <h1>Ваши транзакции</h1>
+    <p class="fs-4">Баланс: <strong>{{ balance }} ₽</strong></p>
+    <a href="{% url 'add_transaction' %}" class="btn btn-success mb-3">+ Добавить</a>
+
+    <table class="table table-striped">
+        <thead>
+            <tr>
+                <th>Тип</th>
+                <th>Категория</th>
+                <th>Сумма</th>
+                <th>Дата</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for t in transactions %}
+                <tr>
+                    <td>{{ t.get_type_display }}</td>
+                    <td>{{ t.category }}</td>
+                    <td>{{ t.amount }} ₽</td>
+                    <td>{{ t.date }}</td>
+                </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+{% endblock %}
