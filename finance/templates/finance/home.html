@@ -1,28 +1,41 @@
 {% extends 'finance/base.html' %}
+{% load static %}
 
 {% block content %}
-    <h1>Ваши транзакции</h1>
-    <p class="fs-4">Баланс: <strong>{{ balance }} ₽</strong></p>
-    <a href="{% url 'add_transaction' %}" class="btn btn-success mb-3">+ Добавить</a>
+<h1 class="fw-bold">Ваши транзакции</h1>
+<p class="fs-4">Баланс:
+    <strong style="color: {% if balance < 0 %}crimson{% else %}green{% endif %}">
+        {{ balance|floatformat:2 }} ₽
+    </strong>
+</p>
 
-    <table class="table table-striped">
-        <thead>
+<table class="table table-hover table-bordered rounded shadow-sm overflow-hidden">
+    <thead class="table-light">
+        <tr>
+            <th>Тип</th>
+            <th>Категория</th>
+            <th>Сумма</th>
+            <th>Дата</th>
+            <th>Действия</th>
+        </tr>
+    </thead>
+    <tbody>
+        {% for t in transactions %}
             <tr>
-                <th>Тип</th>
-                <th>Категория</th>
-                <th>Сумма</th>
-                <th>Дата</th>
+                <td>{{ t.get_type_display }}</td>
+                <td>{{ t.category }}</td>
+                <td>{{ t.amount|floatformat:2 }} ₽</td>
+                <td>{{ t.date }}</td>
+                <td>
+                    <a href="{% url 'edit_transaction' t.id %}" class="btn btn-sm btn-outline-primary">Изменить</a>
+                    <form action="{% url 'delete_transaction' t.id %}" method="post" style="display:inline;">
+                        {% csrf_token %}
+                        <button type="submit" class="btn btn-sm btn-outline-danger">Удалить</button>
+                    </form>
+                </td>
             </tr>
-        </thead>
-        <tbody>
-            {% for t in transactions %}
-                <tr>
-                    <td>{{ t.get_type_display }}</td>
-                    <td>{{ t.category }}</td>
-                    <td>{{ t.amount }} ₽</td>
-                    <td>{{ t.date }}</td>
-                </tr>
-            {% endfor %}
-        </tbody>
-    </table>
+        {% endfor %}
+    </tbody>
+</table>
+
 {% endblock %}

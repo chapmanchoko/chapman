@@ -21,8 +21,11 @@ from finance import views
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path('', views.home, name='home'),
+    path('base/', views.base_view, name='base'),
+    path('home/', views.home, name='home'),
     path('add/', views.add_transaction, name='add_transaction'),
-    path('login/', auth_views.LoginView.as_view(template_name='finance/login.html'), name='login'),
-    path('logout/', auth_views.LogoutView.as_view(), name='logout'),
+    path('', auth_views.LoginView.as_view(template_name='finance/login.html'), name='login'),
+    path('logout/', auth_views.LogoutView.as_view(next_page='login'), name='logout'),
+    path('edit/<int:transaction_id>/', views.edit_transaction, name='edit_transaction'),
+    path('delete/<int:transaction_id>/', views.delete_transaction, name='delete_transaction'),
 ]
