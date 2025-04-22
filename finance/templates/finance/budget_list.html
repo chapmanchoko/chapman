@@ -1,0 +1,10 @@
+
+{% extends 'finance/base.html' %}
+{% block content %}
+<h2>Бюджеты</h2>
+<ul>
+  {% for budget in budgets %}
+    <li>{{ budget.name }} - {{ budget.target_amount }} ₽ ({{ budget.month }}/{{ budget.year }})</li>
+  {% endfor %}
+</ul>
+{% endblock %}

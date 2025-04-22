@@ -1,0 +1,13 @@
+
+{% extends 'finance/base.html' %}
+{% block content %}
+<h2>{% if account %}Редактировать{% else %}Добавить{% endif %} счёт</h2>
+<form method="post">
+    {% csrf_token %}
+    <label for="name">Название:</label>
+    <input type="text" name="name" class="form-control" value="{{ account.name|default_if_none:'' }}">
+    <label for="balance">Баланс:</label>
+    <input type="number" name="balance" step="0.01" class="form-control" value="{{ account.balance|default_if_none:'' }}">
+    <button type="submit" class="btn btn-primary mt-3">Сохранить</button>
+</form>
+{% endblock %}

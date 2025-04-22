@@ -1,0 +1,29 @@
+
+{% extends 'finance/base.html' %}
+{% block content %}
+<h2>Счета</h2>
+<a href="{% url 'account_add' %}" class="btn btn-success mb-3">Добавить счёт</a>
+<table class="table table-bordered">
+    <thead>
+        <tr>
+            <th>Название</th>
+            <th>Баланс</th>
+            <th>Действия</th>
+        </tr>
+    </thead>
+    <tbody>
+    {% for account in accounts %}
+        <tr>
+            <td>{{ account.name }}</td>
+            <td>{{ account.balance }} ₸</td>
+            <td>
+                <a href="{% url 'account_edit' account.id %}">✏️</a>
+                <a href="{% url 'account_delete' account.id %}">🗑</a>
+            </td>
+        </tr>
+    {% empty %}
+        <tr><td colspan="3">Счетов пока нет.</td></tr>
+    {% endfor %}
+    </tbody>
+</table>
+{% endblock %}

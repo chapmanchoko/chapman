@@ -1,0 +1,10 @@
+
+{% extends 'finance/base.html' %}
+{% block content %}
+<h2>Регулярные транзакции</h2>
+<ul>
+  {% for item in recurrings %}
+    <li>{{ item.type }} - {{ item.category.name }} - {{ item.amount }} ₽ ({{ item.frequency }})</li>
+  {% endfor %}
+</ul>
+{% endblock %}
