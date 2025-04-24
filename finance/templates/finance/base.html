@@ -1,6 +1,7 @@
 <!DOCTYPE html>
 <html lang="ru">
 <head>
+    {% load static %}
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>Chapman - Учет финансов</title>
@@ -12,66 +13,59 @@
             background-color: #f8f6ff;
         }
         .navbar {
-            background-color: #6f42c1;
+            background-color: #6f42c1; /* Фон navbar */
         }
         .navbar-brand,
-        .nav-link,
+        .nav-link {
+            color: white !important; /* Цвет текста */
+        }
+        .nav-link:hover {
+            color: #d1c4e9 !important; /* Цвет текста при наведении */
+        }
         .btn-outline-light {
             color: white !important;
+            border-color: white !important;
         }
         .btn-outline-light:hover {
             background-color: #5a34a3;
-        }
-        .btn-primary {
-            background-color: #6f42c1;
-            border-color: #6f42c1;
-        }
-        .btn-primary:hover {
-            background-color: #5a34a3;
             border-color: #5a34a3;
-        }
-        .table {
-            border-radius: 12px;
-            overflow: hidden;
         }
     </style>
 </head>
 <body>
-    <nav class="navbar navbar-expand-lg px-4">
-        <a class="navbar-brand fw-bold" href="#">Chapman</a>
-        <div class="collapse navbar-collapse">
-            <ul class="navbar-nav me-auto">
-                {% if user.is_authenticated %}
-                <li class="nav-item">
-                    <a class="nav-link" href="{% url 'home' %}">Главная</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="{% url 'add_transaction' %}">Добавить</a>
-                </li>
-                {% endif %}
-            </ul>
-            <ul class="navbar-nav">
-                {% if user.is_authenticated %}
-                <li class="nav-item">
-                    <form method="post" action="{% url 'logout' %}">
-                        {% csrf_token %}
-                        <button type="submit" class="btn btn-outline-light">Выйти</button>
-                    </form>
-                </li>
-                {% endif %}
-            </ul>
+    <nav class="navbar navbar-expand-lg">
+        <div class="container-fluid">
+            <a class="navbar-brand" href="{% url 'home' %}">Finance App</a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav">
+                    <li class="nav-item">
+                        <a class="nav-link" href="{% url 'transaction_list' %}">Транзакции</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="{% url 'budget_list' %}">Бюджеты</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="{% url 'recurring_transaction_list' %}">Повторяющиеся транзакции</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="{% url 'savings_goal_list' %}">Цели сбережений</a>
+                    </li>
+                </ul>
+            </div>
         </div>
     </nav>
-
     <div class="container mt-4">
         {% if messages %}
             {% for message in messages %}
                 <div class="alert alert-info">{{ message }}</div>
             {% endfor %}
         {% endif %}
-        {% block content %}{% endblock %}
+        {% block content %}
+        {% endblock %}
     </div>
-
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="{% static 'js/bootstrap.bundle.min.js' %}"></script>
 </body>
 </html>

@@ -1,0 +1,34 @@
+<!-- filepath: c:\Users\admin\Documents\projects\chapman\finance\templates\finance\recurring_transaction_list.html -->
+{% extends 'finance/base.html' %}
+
+{% block content %}
+<h1>Повторяющиеся транзакции</h1>
+<a href="{% url 'add_recurring_transaction' %}" class="btn btn-primary mb-3">Добавить повторяющуюся транзакцию</a>
+<table class="table">
+    <thead>
+        <tr>
+            <th>Тип</th>
+            <th>Категория</th>
+            <th>Сумма</th>
+            <th>Частота</th>
+            <th>Следующая дата</th>
+            <th>Действия</th>
+        </tr>
+    </thead>
+    <tbody>
+        {% for transaction in recurring_transactions %}
+        <tr>
+            <td>{{ transaction.get_type_display }}</td>
+            <td>{{ transaction.category }}</td>
+            <td>{{ transaction.amount }} ₽</td>
+            <td>{{ transaction.frequency }}</td>
+            <td>{{ transaction.next_date }}</td>
+            <td>
+                <a href="{% url 'edit_recurring_transaction' transaction.id %}" class="btn btn-sm btn-warning">Редактировать</a>
+                <a href="{% url 'delete_recurring_transaction' transaction.id %}" class="btn btn-sm btn-danger">Удалить</a>
+            </td>
+        </tr>
+        {% endfor %}
+    </tbody>
+</table>
+{% endblock %}

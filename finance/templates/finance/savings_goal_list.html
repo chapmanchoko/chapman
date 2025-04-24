@@ -1,0 +1,32 @@
+<!-- filepath: c:\Users\admin\Documents\projects\chapman\finance\templates\finance\savings_goal_list.html -->
+{% extends 'finance/base.html' %}
+
+{% block content %}
+<h1>Цели сбережений</h1>
+<a href="{% url 'add_savings_goal' %}" class="btn btn-primary mb-3">Добавить цель</a>
+<table class="table">
+    <thead>
+        <tr>
+            <th>Название</th>
+            <th>Целевая сумма</th>
+            <th>Текущая сумма</th>
+            <th>Дедлайн</th>
+            <th>Действия</th>
+        </tr>
+    </thead>
+    <tbody>
+        {% for goal in savings_goals %}
+        <tr>
+            <td>{{ goal.name }}</td>
+            <td>{{ goal.target_amount }} ₽</td>
+            <td>{{ goal.current_amount }} ₽</td>
+            <td>{{ goal.deadline }}</td>
+            <td>
+                <a href="{% url 'edit_savings_goal' goal.id %}" class="btn btn-sm btn-warning">Редактировать</a>
+                <a href="{% url 'delete_savings_goal' goal.id %}" class="btn btn-sm btn-danger">Удалить</a>
+            </td>
+        </tr>
+        {% endfor %}
+    </tbody>
+</table>
+{% endblock %}

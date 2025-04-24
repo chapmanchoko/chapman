@@ -1,0 +1,12 @@
+<!-- filepath: c:\Users\admin\Documents\projects\chapman\finance\templates\finance\edit_budget.html -->
+{% extends 'finance/base.html' %}
+
+{% block content %}
+<h1>Редактировать бюджет</h1>
+<form method="post">
+    {% csrf_token %}
+    {{ form.as_p }}
+    <button type="submit" class="btn btn-primary">Сохранить</button>
+    <a href="{% url 'budget_list' %}" class="btn btn-secondary">Отмена</a>
+</form>
+{% endblock %}

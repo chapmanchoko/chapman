@@ -1,0 +1,12 @@
+<!-- filepath: c:\Users\admin\Documents\projects\chapman\finance\templates\finance\delete_savings_goal.html -->
+{% extends 'finance/base.html' %}
+
+{% block content %}
+<h1>Удалить цель сбережений</h1>
+<p>Вы уверены, что хотите удалить цель "{{ goal.name }}"?</p>
+<form method="post">
+    {% csrf_token %}
+    <button type="submit" class="btn btn-danger">Удалить</button>
+    <a href="{% url 'savings_goal_list' %}" class="btn btn-secondary">Отмена</a>
+</form>
+{% endblock %}

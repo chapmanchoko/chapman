@@ -8,10 +8,16 @@ media/
 
 # Environment
 .env
-.venv/
 venv/
 env/
 
 # IDE
 .idea/
 .vscode/
+
+# Migrations
+**/migrations/*.py
+!**/migrations/__init__.py
+
+# Static and compiled files
+staticfiles/
