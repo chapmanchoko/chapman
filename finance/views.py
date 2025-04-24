@@ -2,6 +2,7 @@ from django.shortcuts import render, redirect, get_object_or_404
 from django.contrib.auth.decorators import login_required
 from .models import Transaction, Budget, RecurringTransaction, SavingsGoal
 from .forms import TransactionForm, BudgetForm, RecurringTransactionForm, SavingsGoalForm
+from django.contrib.auth.forms import UserCreationForm
 
 CATEGORIES = {
     'income': ['Зарплата', 'Фриланс', 'Подарок'],
@@ -191,3 +192,13 @@ def delete_savings_goal(request, goal_id):
         goal.delete()
         return redirect('savings_goal_list')
     return render(request, 'finance/delete_savings_goal.html', {'goal': goal})
+
+def register(request):
+    if request.method == 'POST':
+        form = UserCreationForm(request.POST)
+        if form.is_valid():
+            form.save()
+            return redirect('login')  # Перенаправление на страницу входа после успешной регистрации
+    else:
+        form = UserCreationForm()
+    return render(request, 'finance/register.html', {'form': form})

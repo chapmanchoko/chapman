@@ -2,8 +2,7 @@ from django.urls import path
 from . import views
 from django.conf import settings
 from django.conf.urls.static import static
-
-
+from django.contrib.auth.views import LogoutView
 
 urlpatterns = [
     path('recurring-transactions/', views.recurring_transaction_list, name='recurring_transaction_list'),
@@ -25,4 +24,6 @@ urlpatterns = [
     path('savings-goals/add/', views.add_savings_goal, name='add_savings_goal'),
     path('savings-goals/edit/<int:goal_id>/', views.edit_savings_goal, name='edit_savings_goal'),
     path('savings-goals/delete/<int:goal_id>/', views.delete_savings_goal, name='delete_savings_goal'),
+    path('register/', views.register, name='register'),
+    path('logout/', LogoutView.as_view(), name='logout'),
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

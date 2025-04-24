@@ -4,7 +4,7 @@ from .models import Transaction, Budget, RecurringTransaction, SavingsGoal
 
 @admin.register(Transaction)
 class TransactionAdmin(admin.ModelAdmin):
-    list_display = ('user', 'type', 'category', 'amount', 'date')
+    list_display = ['user', 'type', 'category', 'amount', 'date']  # Убедитесь, что 'user' есть в модели
     list_filter = ('type', 'date')
     search_fields = ('category', 'description')
 
